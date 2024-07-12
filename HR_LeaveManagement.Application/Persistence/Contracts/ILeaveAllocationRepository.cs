@@ -2,7 +2,9 @@
 
 namespace HR_LeaveManagement.Application.Persistence.Contracts
 {
-    internal interface ILeaveAllocationRepository : IGenericRepository<LeaveAllocation>
+    public interface ILeaveAllocationRepository : IGenericRepository<LeaveAllocation>
     {
+        Task<List<LeaveAllocation>> GetAllListAllocationAsync();
+        Task<LeaveAllocation>GetListAllocationAsyncById(int id);
     }
 }
