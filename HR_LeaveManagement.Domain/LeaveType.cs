@@ -5,6 +5,6 @@ namespace HR_LeaveManagement.Domain
     public class LeaveType : BaseDomainEntity
     {
         public string Name { get; set; }    
-        public string DefaultDays { get; set; }
+        public int DefaultDays { get; set; }
     }
 }
