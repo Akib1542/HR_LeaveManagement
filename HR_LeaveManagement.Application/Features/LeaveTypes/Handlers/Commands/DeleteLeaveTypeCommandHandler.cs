@@ -1,6 +1,8 @@
-﻿using HR_LeaveManagement.Application.Features.LeaveTypes.Requests.Commands;
-using HR_LeaveManagement.Application.Persistence.Contracts;
+﻿using HR_LeaveManagement.Application.Exceptions;
+using HR_LeaveManagement.Application.Features.LeaveTypes.Requests.Commands;
+using HR_LeaveManagement.Application.Contracts.Persistence;
 using MediatR;
+using System.Data.Common;
 
 namespace HR_LeaveManagement.Application.Features.LeaveTypes.Handlers.Commands
 {
@@ -14,8 +16,12 @@ namespace HR_LeaveManagement.Application.Features.LeaveTypes.Handlers.Commands
 
         public async Task<Unit> Handle(DeleteLeaveTypeCommand request, CancellationToken cancellationToken)
         {
-            var dataFromDb = await _leaveTypeRepository.GetAsync(request.Id);
-            await _leaveTypeRepository.DeleteAsync(dataFromDb);
+            var dataFromDb = await _leaveTypeRepository.GetLeaveAsync(request.Id);
+            if (dataFromDb == null)
+            {
+                throw new NotFoundException(nameof(DataAdapter), request.Id);
+            }
+            await _leaveTypeRepository.DeleteLeaveAsync(dataFromDb);
             return Unit.Value;
         }
     }

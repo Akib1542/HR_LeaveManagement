@@ -1,5 +1,4 @@
-﻿
-using MediatR;
+﻿using MediatR;
 
 namespace HR_LeaveManagement.Application.Features.LeaveAllocations.Requests.Commands
 {

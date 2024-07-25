@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using HR_LeaveManagement.Domain.Common;
+﻿using HR_LeaveManagement.Domain.Common;
 
 namespace HR_LeaveManagement.Domain
 {
@@ -15,6 +13,6 @@ namespace HR_LeaveManagement.Domain
         public DateTime DateActioned { get; set; }
         public bool? Approved { get; set; }
         public bool Cancelled { get; set; }
-   
+
     }
 }

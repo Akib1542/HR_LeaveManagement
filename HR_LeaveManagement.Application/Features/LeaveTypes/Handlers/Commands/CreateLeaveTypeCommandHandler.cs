@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using HR_LeaveManagement.Application.DTOs.LeaveType.Validators;
+using HR_LeaveManagement.Application.Exceptions;
 using HR_LeaveManagement.Application.Features.LeaveTypes.Requests.Commands;
-using HR_LeaveManagement.Application.Persistence.Contracts;
+using HR_LeaveManagement.Application.Contracts.Persistence;
 using HR_LeaveManagement.Domain;
 using MediatR;
 
@@ -23,10 +24,10 @@ namespace HR_LeaveManagement.Application.Features.LeaveTypes.Handlers.Commands
             var validatorResult = await validator.ValidateAsync(request.LeaveTypeDto);
             if (!validatorResult.IsValid)
             {
-                throw new Exception();
+                throw new ValidationException(validatorResult);
             }
             var leaveTypeInDb = _mapper.Map<LeaveType>(request.LeaveTypeDto);
-            leaveTypeInDb = await _leaveTypeRepository.AddAsync(leaveTypeInDb);
+            leaveTypeInDb = await _leaveTypeRepository.AddLeaveAsync(leaveTypeInDb);
             return leaveTypeInDb.Id;    
         }
     }
