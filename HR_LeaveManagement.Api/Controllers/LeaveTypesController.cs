@@ -1,4 +1,7 @@
-﻿using MediatR;
+﻿using HR_LeaveManagement.Application.DTOs.LeaveType;
+using HR_LeaveManagement.Application.Features.LeaveTypes.Requests.Commands;
+using HR_LeaveManagement.Application.Features.LeaveTypes.Requests.Queries;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -17,34 +20,46 @@ namespace HR_LeaveManagement.Api.Controllers
         }
         // GET: api/<ValuesController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult< List<LeaveTypeDto>>> Get()
         {
-            return new string[] { "value1", "value2" };
+            var leaveTypes = await _mediator.Send(new GetLeaveTypeListRequest());
+            return Ok(leaveTypes);
         }
 
         // GET api/<ValuesController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<LeaveTypeDto>> Get(int id)
         {
-            return "value";
+            var leaveType = await _mediator.Send(new GetLeaveTypeRequestById { Id = id });
+            return Ok(leaveType);
         }
 
         // POST api/<ValuesController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] CreateLeaveTypeDto createLeaveTypeDto)
         {
+            var command = new CreateLeaveTypeCommand { LeaveTypeDto = createLeaveTypeDto };
+            var response = await _mediator.Send(command);
+            return Ok(response);
         }
 
         // PUT api/<ValuesController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Put([FromBody] LeaveTypeDto leaveTypeDto)
         {
+            var command = new UpdateLeaveTypeCommand { LeaveType = leaveTypeDto };
+            await _mediator.Send(command);
+            return NoContent();
+
         }
 
         // DELETE api/<ValuesController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            var command = new DeleteLeaveTypeCommand { Id = id };
+            await _mediator.Send(command);
+            return NoContent();
         }
     }
 }

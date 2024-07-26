@@ -22,20 +22,18 @@ namespace HR_LeaveManagement.Persistence.Repositories
 
         public async Task<List<LeaveRequest>> GetAllLeaveRequestAsync()
         {
-         /*   var leaveRequests = await _context.LeaveRequests
+          var leaveRequests = await _context.LeaveRequests
                 .Include(q => q.LeaveType)
                 .ToListAsync(); 
-            return leaveRequests;*/
-            throw new NotImplementedException();
+            return leaveRequests;
         }
 
-        public Task<LeaveRequest> GetLeaveRequestByIdAsync(int id)
+        public async Task<LeaveRequest> GetLeaveRequestByIdAsync(int id)
         {
-           /* var leaveRequest = await _context.LeaveRequests
+           var leaveRequest = await _context.LeaveRequests
               .Include(q => q.LeaveType)
-              .FirstOrDefalutAsync(q=> q.Id == id);
-            return leaveRequest;*/
-            throw new NotImplementedException();
+              .FirstOrDefaultAsync(q=> q.Id == id);
+            return leaveRequest;
         }
     }
 }
