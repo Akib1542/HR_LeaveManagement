@@ -4,9 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HR_LeaveManagement.Persistence
 {
-    public class LeaveManagementDbContext:DbContext
+    public class LeaveManagementDbContext : DbContext
     {
-        public LeaveManagementDbContext(DbContextOptions<LeaveManagementDbContext> options) : base(options)
+        public LeaveManagementDbContext(DbContextOptions<LeaveManagementDbContext> options) 
+            : base(options)
         {
         }
 
@@ -16,7 +17,7 @@ namespace HR_LeaveManagement.Persistence
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(LeaveManagementDbContext).Assembly);
         }
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        public async override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             foreach(var entry in ChangeTracker.Entries<BaseDomainEntity>())
             {
@@ -28,12 +29,12 @@ namespace HR_LeaveManagement.Persistence
 
                 }
             }
-            return base.SaveChangesAsync(cancellationToken);
+            return await base.SaveChangesAsync(cancellationToken);
         }
 
-        public LeaveRequest LeaveRequests { get; set; }
-        public LeaveAllocation LeaveAllocations { get; set; }
-        public LeaveType LeaveTypes { get; set; }
+        public DbSet<LeaveRequest> LeaveRequests { get; set; }
+        public DbSet<LeaveAllocation> LeaveAllocations { get; set; }
+        public DbSet<LeaveType> LeaveTypes { get; set; }
 
     }
 }
