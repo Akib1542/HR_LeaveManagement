@@ -25,6 +25,7 @@ namespace HR_LeaveManagement.Persistence.Repositories
           var leaveRequests = await _context.LeaveRequests
                 .Include(q => q.LeaveType)
                 .ToListAsync(); 
+
             return leaveRequests;
         }
 
@@ -33,6 +34,7 @@ namespace HR_LeaveManagement.Persistence.Repositories
            var leaveRequest = await _context.LeaveRequests
               .Include(q => q.LeaveType)
               .FirstOrDefaultAsync(q=> q.Id == id);
+
             return leaveRequest;
         }
     }

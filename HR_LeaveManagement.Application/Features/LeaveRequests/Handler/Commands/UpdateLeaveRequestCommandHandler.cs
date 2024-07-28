@@ -25,7 +25,7 @@ namespace HR_LeaveManagement.Application.Features.LeaveRequests.Handler.Commands
             var validatoionResult = await validator.ValidateAsync(request.updateLeaveRequestDto);
             if (!validatoionResult.IsValid)
             {
-                throw new ValidationException(validatoionResult);
+                throw new ValidationExceptions(validatoionResult);
             }
 
             var updateLeaveRequest = await _leaveRequestRepository.GetLeaveAsync(request.Id);

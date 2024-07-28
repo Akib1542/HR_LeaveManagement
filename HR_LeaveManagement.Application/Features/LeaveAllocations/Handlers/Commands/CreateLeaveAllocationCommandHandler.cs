@@ -27,7 +27,7 @@ namespace HR_LeaveManagement.Application.Features.LeaveAllocations.Handlers.Comm
             var validationResult = await validator.ValidateAsync(request.leaveAllocation);
             if(!validationResult.IsValid)
             {
-                throw new ValidationException(validationResult);
+                throw new ValidationExceptions(validationResult);
             }
             var leaveAllocationInDb = _mapper.Map<LeaveAllocation>(request.leaveAllocation);
             leaveAllocationInDb = await _leaveAllocationRepository.AddLeaveAsync(leaveAllocationInDb);

@@ -26,7 +26,7 @@ namespace HR_LeaveManagement.Application.Features.LeaveAllocations.Handlers.Comm
             var validatoionResult = await validator.ValidateAsync(request.leaveAllocationDto);
             if (!validatoionResult.IsValid)
             {
-                throw new ValidationException(validatoionResult);
+                throw new ValidationExceptions(validatoionResult);
             }
 
             var updateLeaveAllocation = await _leaveAllocationRepository.GetLeaveAsync(request.leaveAllocationDto.Id);
